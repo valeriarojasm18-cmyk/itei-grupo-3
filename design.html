@@ -4,11 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valeria Rojas — Sistema de diseño</title>
-<meta name="description" content="Página de referencia visual del sistema de diseño: colores, tipografía, radios, formas y componentes.">
+<meta name="description" content="Sistema de diseño de Valeria Rojas: colores, tipografía, radios, formas, componentes y reglas de uso.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Questrial&family=Fraunces:opsz,soft,wght@9..144,400;9..144,600&display=swap" rel="stylesheet">
 <style>
+/* ===== Fuente local: Camiro ===== */
+@font-face{font-family:'Camiro';src:url('assets/fonts/Camiro.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
 /* ===== TOKENS (fieles a DESIGN.md) ===== */
 :root{
   --color-primary:#E65286;
@@ -36,8 +38,8 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
-body{margin:0;font-family:var(--font-body);background:var(--color-background);color:var(--color-ink);font-size:17px;line-height:1.6}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.flor:hover{transform:none!important}.flor:hover .flor-in{transform:rotate(var(--rot,0deg)) scaleX(var(--sx,1))!important}}
+body{margin:0;font-family:var(--font-body);background:#FCF4E9;color:var(--color-ink);font-size:17px;line-height:1.6}
 :focus-visible{outline:2px solid var(--color-primary);outline-offset:3px;border-radius:4px}
 .skip{position:absolute;left:-9999px;top:0;background:var(--color-ink);color:#fff;padding:8px 16px;z-index:200;border-radius:0 0 12px 0}
 .skip:focus{left:0;color:#fff}
@@ -55,34 +57,167 @@ body{margin:0;font-family:var(--font-body);background:var(--color-background);co
 .btn-rose:hover{background:var(--color-primary);transform:scale(1.02)}
 .btn-lime{background:var(--color-secondary);color:var(--color-ink)}
 .btn-lime:hover{filter:brightness(.96);transform:scale(1.02)}
-.btn-ghost{background:transparent;color:var(--color-ink);border:1.5px solid var(--color-border)}
-.btn-ghost:hover{border-color:var(--color-primary)}
+.btn-ghost{background:transparent;color:var(--color-ink);border:1.5px solid var(--color-border);transition:background .3s ease,border-color .3s ease,color .3s ease}
+.btn-ghost:hover{background:var(--color-secondary);color:var(--color-ink);border-color:var(--color-secondary)}
 .menu-btn{display:none;background:none;border:1px solid var(--color-border);border-radius:var(--r-full);padding:10px 18px;font-family:var(--font-heading);font-weight:700;cursor:pointer;min-height:44px}
-/* ===== HERO ===== */
+/* ===== HERO (Portada a sangre completa) ===== */
 .wrap{max-width:var(--max);margin:0 auto;padding:0 64px}
-.hero{position:relative;overflow:hidden;border-radius:var(--r-xl);margin-top:32px;padding:96px 64px;background:var(--color-background);border:1px solid var(--color-border)}
+/* ===== PORTADA (imagen de gran formato, sin marcos) ===== */
+.portada{margin:6px 0 0}
+.portada-img{display:block;width:100%;height:auto}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+/* ===== FLORES decorate ===== */
+.flores{position:absolute;inset:0;pointer-events:none;z-index:-1}
+.flor{position:absolute;width:var(--w);pointer-events:auto;transition:transform .5s ease}
+.flor-in{display:block;position:relative;width:100%;aspect-ratio:var(--ar);overflow:hidden;transform:rotate(var(--rot,0deg)) scaleX(var(--sx,1));transition:transform .5s ease}
+.flor-in img{position:absolute;display:block;width:calc(100% / var(--fw));max-width:none;left:calc(-100% * var(--rx));top:calc(-100% * var(--ry))}
+/* microinteracción al cursor: movimiento discreto, sin animación infinita (reutiliza la lógica de hover de index) */
+.flor{will-change:transform}
+.flor:hover{transform:translateY(-6px)}
+.flor:hover .flor-in{transform:rotate(calc(var(--rot,0deg) + var(--hr,3deg))) scaleX(var(--sx,1))}
+/* decoración floral por sección — solo espacios vacíos */
+.ov1{--w:135px;--ar:1.1424;--fw:.241;--rx:.0373;--ry:.5678;--rot:-10deg;right:-6%;top:6px;}
+.ov2{--w:130px;--ar:1.3195;--fw:.312;--rx:1.7821;--ry:.536;--rot:6deg;left:-6%;bottom:-46px;}
+.co1{--w:160px;--ar:2.5132;--fw:.268;--rx:2.6903;--ry:2.5725;--rot:-14deg;left:-6%;bottom:-36px;}
+.co2{--w:150px;--ar:1.202;--fw:.248;--rx:.75;--ry:1.8802;--rot:12deg;right:-4%;top:8px;}
+.co3{--w:90px;--ar:.9598;--fw:.155;--rx:1.6645;--ry:.933;--rot:18deg;left:-2%;bottom:-44px;}
+.tp1{--w:180px;--ar:1.1956;--fw:.182;--rx:2.3352;--ry:1.0254;--rot:-8deg;right:-5%;bottom:-36px;}
+.tp2{--w:140px;--ar:1.7938;--fw:.280;--rx:1.7643;--ry:2.7781;--rot:10deg;right:-8%;top:8px;}
+.ly1{--w:200px;--ar:1.9662;--fw:.392;--rx:.5306;--ry:1.3876;--rot:10deg;right:-8%;top:8px;}
+.ly2{--w:85px;--ar:.9598;--fw:.155;--rx:1.6645;--ry:.933;--rot:-12deg;left:-3%;bottom:-46px;}
+.el1{--w:140px;--ar:1.0545;--fw:.198;--rx:.0758;--ry:2.1564;--rot:12deg;right:-4%;top:8px;}
+.el2{--w:90px;--ar:.9598;--fw:.155;--rx:1.6645;--ry:.933;--rot:-10deg;left:-2%;bottom:-34px;}
+.sh1{--w:150px;--ar:1.3195;--fw:.312;--rx:1.7821;--ry:.536;--rot:14deg;right:-6%;top:8px;}
+.sh2{--w:150px;--ar:1.1956;--fw:.182;--rx:2.3352;--ry:1.0254;--rot:-6deg;right:-5%;bottom:-36px;}
+.cp1{--w:130px;--ar:1.202;--fw:.248;--rx:.75;--ry:1.8802;--rot:12deg;right:-4%;top:8px;}
+/* jardín floral de cierre (footer) — banda continua en todo el borde inferior */
+.cierre-flores{position:absolute;left:calc(50% - 50vw);width:100vw;bottom:-12px;height:290px;pointer-events:none;z-index:1}
+.foot-text{position:relative;z-index:3;display:block}
+@keyframes flotar2{0%,100%{transform:translateY(0)}50%{transform:translateY(var(--fdy,-7px))}}
+.cierre-flores .flor,.flor-shelf .flor{animation:flotar2 var(--fd,9s) ease-in-out var(--fdel,0s) infinite}
+@media (hover:none){.cierre-flores .flor,.flor-shelf .flor{--fdy:-4px}}
+.cf1{--w:120px;--ar:1.0545;--fw:.198;--rx:.0758;--ry:2.1564;--rot:-14deg;left:1.6%;bottom:-40px;z-index:5;--fd:10s;--fdel:.4s;--fdy:-6px}
+.cf2{--w:110px;--ar:1.3195;--fw:.312;--rx:1.7821;--ry:.536;--rot:8deg;left:7.5%;bottom:-36px;z-index:4;--fd:8.5s;--fdel:1.1s;--fdy:-8px}
+.cf3{--w:200px;--ar:1.1424;--fw:.241;--rx:.0373;--ry:.5678;--rot:-12deg;left:15.5%;bottom:-24px;z-index:2;--fd:11s;--fdel:.2s;--fdy:-8px}
+.cf4{--w:90px;--ar:.9598;--fw:.155;--rx:1.6645;--ry:.933;--rot:14deg;left:26%;bottom:-30px;z-index:5;--fd:7.5s;--fdel:.8s;--fdy:-6px}
+.cf5{--w:150px;--ar:2.5132;--fw:.268;--rx:2.6903;--ry:2.5725;--rot:-4deg;left:31.5%;bottom:-34px;z-index:2;--fd:9.5s;--fdel:1.6s;--fdy:-9px}
+.cf6{--w:150px;--ar:1.1956;--fw:.182;--rx:2.3352;--ry:1.0254;--rot:-8deg;left:38.5%;bottom:-34px;z-index:3;--fd:8s;--fdel:.5s;--fdy:-7px}
+.cf7{--w:130px;--ar:1.7938;--fw:.280;--rx:1.7643;--ry:2.7781;--rot:5deg;left:45.5%;bottom:-42px;z-index:4;--fd:10.5s;--fdel:1.9s;--fdy:-6px}
+.cf8{--w:110px;--ar:1.202;--fw:.248;--rx:.75;--ry:1.8802;--rot:-9deg;left:52.5%;bottom:-40px;z-index:4;--fd:9s;--fdel:.9s;--fdy:-8px}
+.cf9{--w:170px;--ar:1.9662;--fw:.392;--rx:.5306;--ry:1.3876;--rot:10deg;left:59%;bottom:-38px;z-index:2;--fd:8.5s;--fdel:1.3s;--fdy:-9px}
+.cf10{--w:155px;--ar:1.1956;--fw:.182;--rx:2.3352;--ry:1.0254;--rot:-16deg;--sx:-1;left:66.5%;bottom:-26px;z-index:3;--fd:7.5s;--fdel:.3s;--fdy:-7px}
+.cf11{--w:185px;--ar:1.1424;--fw:.241;--rx:.0373;--ry:.5678;--rot:12deg;--sx:-1;left:75%;bottom:-24px;z-index:2;--fd:10s;--fdel:1.7s;--fdy:-8px}
+.cf12{--w:120px;--ar:1.3195;--fw:.312;--rx:1.7821;--ry:.536;--rot:-18deg;left:84%;bottom:-36px;z-index:3;--fd:9.5s;--fdel:.6s;--fdy:-7px}
+.cf13{--w:80px;--ar:.9598;--fw:.155;--rx:1.6645;--ry:.933;--rot:10deg;right:2%;bottom:-16px;z-index:5;--fd:8s;--fdel:1.5s;--fdy:-6px}
+/* composición alargada entre Components y Sí y no */
+.rg1{--w:230px;--ar:1.9662;--fw:.392;--rx:.5306;--ry:1.3876;--rot:-14deg;right:-6%;top:-34px;}
+.rg2{--w:110px;--ar:1.3195;--fw:.312;--rx:1.7821;--ry:.536;--rot:10deg;right:12%;top:-18px;}
+/* flor grande protagonista en Components */
+.cp2{--w:135px;--ar:1.1424;--fw:.241;--rx:.0373;--ry:.5678;--rot:-12deg;right:-5%;top:6px;}
+.cp3{--w:100px;--ar:1.7938;--fw:.280;--rx:1.7643;--ry:2.7781;--rot:8deg;right:13%;top:2px;}
+@media (max-width:900px){
+  /* límites de altura en flores superiores para no invadir párrafos */
+  .ov1{--w:130px}
+  .tp1{--w:150px}
+  .sh2{--w:120px}
+  .cp2{--w:120px;right:-6%}
+  .cp3{--w:76px;right:10%}
+  .rg1{--w:150px;top:-20px}
+  .rg2{--w:80px;right:6%}
+  /* jardín floral: banda compacta a lo ancho, fuera del texto */
+  .cierre-flores{height:150px;bottom:-8px}
+  .cf3,.cf9,.cf11{display:none}
+  .cf1{--w:80px;left:3%;bottom:-26px}
+  .cf2{--w:86px;left:12.5%;bottom:-24px}
+  .cf4{--w:70px;left:21.5%;bottom:-20px}
+  .cf5{--w:110px;left:29%;bottom:-26px}
+  .cf6{--w:110px;left:37.5%;bottom:-24px}
+  .cf7{--w:96px;left:46%;bottom:-30px}
+  .cf8{--w:82px;left:54%;bottom:-28px}
+  .cf10{--w:110px;left:62.5%;bottom:-18px}
+  .cf12{--w:90px;left:76%;bottom:-26px}
+  .cf13{--w:64px;right:2.5%;bottom:-12px}
+}
+/* móviles angostos: jardín de seis piezas, completo y sin cortes */
+@media (max-width:620px){
+  .cf2,.cf4,.cf6,.cf8{display:none}
+  .cf1{--w:74px;left:3%;bottom:-22px}
+  .cf5{--w:90px;left:17%;bottom:-24px}
+  .cf7{--w:80px;left:33%;bottom:-26px}
+  .cf10{--w:92px;left:49%;bottom:-16px}
+  .cf12{--w:78px;left:68%;bottom:-22px}
+  .cf13{--w:60px;right:3%;bottom:-10px}
+}
+/* biblioteca floral en Shapes — colección sobre cápsula crema */
+.flor-lib{margin-top:32px;border:1px solid var(--color-border);border-radius:var(--r-xl);background:var(--color-cream);padding:30px 30px 26px;position:relative;overflow:hidden}
+.lib-title{font-family:var(--font-heading);font-size:24px;letter-spacing:-.01em;margin:0 0 6px}
+.lib-desc{max-width:76ch;color:var(--color-ink-muted);margin:0;position:relative;z-index:1}
+.flor-shelf{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:14px;min-height:180px;padding:28px 30px 12px;position:relative;z-index:1}
+.flor-shelf .flor{position:relative;flex:0 0 auto}
+.lb1{--w:120px;--ar:1.1424;--fw:.241;--rx:.0373;--ry:.5678;--rot:-10deg;--fd:9s;--fdel:.3s;--fdy:-6px}
+.lb2{--w:110px;--ar:2.5132;--fw:.268;--rx:2.6903;--ry:2.5725;--rot:6deg;margin-bottom:18px;--fd:8s;--fdel:1.1s;--fdy:-7px}
+.lb3{--w:105px;--ar:1.3195;--fw:.312;--rx:1.7821;--ry:.536;--rot:14deg;--fd:10.5s;--fdel:.7s;--fdy:-8px}
+.lb4{--w:92px;--ar:1.1956;--fw:.182;--rx:2.3352;--ry:1.0254;--rot:-8deg;margin-bottom:12px;--fd:7.5s;--fdel:1.5s;--fdy:-6px}
+.lb5{--w:140px;--ar:1.9662;--fw:.392;--rx:.5306;--ry:1.3876;--rot:-5deg;--fd:9.5s;--fdel:.9s;--fdy:-7px}
+.lb6{--w:78px;--ar:.9598;--fw:.155;--rx:1.6645;--ry:.933;--rot:12deg;margin-bottom:20px;--fd:8.5s;--fdel:.2s;--fdy:-8px}
+.lb7{--w:85px;--ar:1.202;--fw:.248;--rx:.75;--ry:1.8802;--rot:-14deg;--fd:10s;--fdel:1.9s;--fdy:-6px}
+.lb8{--w:64px;--ar:1.0545;--fw:.198;--rx:.0758;--ry:2.1564;--rot:9deg;margin-bottom:8px;--fd:9s;--fdel:1.2s;--fdy:-7px}
+.lib-rules{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px;position:relative;z-index:1}
+.lib-rule{border-radius:var(--r-md);padding:18px 22px}
+.lib-good{background:var(--color-secondary-soft)}
+.lib-bad{background:var(--color-primary-soft)}
+.lib-rule h4{font-family:var(--font-heading);font-size:15px;margin:0 0 10px}
+.lib-rule ul{list-style:none;margin:0;padding:0}
+.lib-rule li{margin-bottom:8px;padding-left:26px;position:relative;font-size:14px;color:var(--color-ink)}
+.lib-rule li:last-child{margin-bottom:0}
+.lib-good li::before{content:"✓";position:absolute;left:0;font-weight:700;color:var(--color-secondary-deep)}
+.lib-bad li::before{content:"✕";position:absolute;left:0;font-weight:700;color:var(--color-primary-hover)}
+/* Adaptación móvil — flor protagonista en el espacio derecho */
+.resp-flores{position:absolute;right:-2%;top:44px;width:230px;height:320px;pointer-events:none;z-index:0}
+.rv1{--w:175px;--ar:1.1424;--fw:.241;--rx:.0373;--ry:.5678;--rot:-10deg;right:0;top:0}
+.rv2{--w:115px;--ar:1.3195;--fw:.312;--rx:1.7821;--ry:.536;--rot:14deg;right:36%;top:170px}
+@media (max-width:900px){
+  .resp-flores{width:120px;height:190px;top:80px}
+  .rv1{--w:105px;right:-3%}
+  .rv2{display:none}
+}
+/* franja intermedia: la flor se reduce hasta que el párrafo tiene margen garantizado */
+@media (max-width:1000px) and (min-width:821px){
+  .resp-flores{width:150px;height:250px;right:-6%}
+  .rv1{--w:110px}
+  .rv2{display:none}
+}
+@media (max-width:640px){
+  .flor-shelf{justify-content:center;gap:20px;min-height:150px;padding:22px 14px 8px}
+  .lb1{--w:96px}.lb2{--w:88px}.lb3{--w:84px}.lb5{--w:112px}.lb4{--w:74px}
+  .lib-rules{grid-template-columns:1fr}
+  .flor-lib{padding:22px 18px 20px}
+}
 .heat{position:absolute;inset:-20%;pointer-events:none;background:
   radial-gradient(38% 42% at 30% 35%, rgba(230,82,134,.45), transparent 70%),
   radial-gradient(34% 38% at 68% 40%, rgba(208,232,110,.55), transparent 70%),
   radial-gradient(30% 34% at 50% 72%, rgba(252,226,191,.8), transparent 70%);filter:blur(30px);opacity:.8}
-.hero-inner{position:relative}
-.eyebrow{font-family:var(--font-heading);font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;background:var(--color-secondary);display:inline-block;padding:6px 14px;border-radius:var(--r-full)}
-h1.display{font-family:var(--font-display);font-weight:400;font-size:clamp(44px,7vw,88px);line-height:1.02;letter-spacing:-.02em;margin:24px 0 16px;max-width:12ch}
-.lede{max-width:68ch;color:var(--color-ink-muted)}
-.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
 .link-arrow{color:var(--color-ink);text-decoration:none;font-size:16px}
 .link-arrow:hover{color:var(--color-primary-hover)}
 /* ===== SECTIONS ===== */
-section.block{padding:64px 0;border-bottom:1px solid var(--color-border)}
+section.block{padding:64px 0;position:relative}
+html,body{overflow-x:clip}
+section.block>.heat-soft{position:absolute;top:0;bottom:0;left:50%;width:100vw;max-width:100vw;transform:translateX(-50%);overflow:visible;pointer-events:none;z-index:-1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.sys-hero .heat-soft,.contact-card .heat-soft{position:absolute;inset:0;overflow:hidden;pointer-events:none;border-radius:inherit}
+.heat-soft i{position:absolute;width:46%;aspect-ratio:1/1;filter:blur(28px);opacity:1;border-radius:42% 58% 63% 37%/45% 42% 58% 55%;transform:translate(var(--hx,0px),var(--hy,0px));transition:transform .6s ease}
+.heat-soft i:nth-of-type(2){border-radius:58% 42% 37% 63%/52% 58% 42% 48%}
+.heat-soft i:nth-of-type(3){border-radius:37% 63% 52% 48%/58% 37% 63% 42%}
+.grain{position:absolute;inset:0;pointer-events:none;opacity:.07;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/><feColorMatrix type="saturate" values="0"/></filter><rect width="120" height="120" filter="url(%23n)" opacity="0.55"/></svg>')}
 .sec-label{font-family:var(--font-heading);font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-ink-muted)}
 h2.sec{font-family:var(--font-heading);font-size:clamp(32px,4vw,56px);line-height:1.1;margin:8px 0 8px;letter-spacing:-.01em}
 .sec-desc{max-width:68ch;color:var(--color-ink-muted);margin-top:0}
 .token{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85em;background:#f4f1ec;padding:2px 8px;border-radius:6px;white-space:nowrap}
 /* colors */
 .swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:32px}
-.swatch{border:1px solid var(--color-border);border-radius:var(--r-md);overflow:hidden;background:#fff}
-.swatch .chip{height:96px}
-.swatch .meta{padding:14px 16px}
+.swatch{border:1px solid rgba(255,255,255,.75);border-radius:var(--r-lg);overflow:hidden;background:#fff;transition:transform .25s ease,box-shadow .25s ease}
+.swatch:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+.swatch .chip{height:120px}
+.swatch .meta{padding:16px 18px}
 .swatch strong{display:block;font-family:var(--font-heading);font-size:15px}
 .swatch code{font-size:13px;color:var(--color-ink-muted)}
 .swatch p{font-size:14px;color:var(--color-ink-muted);margin:8px 0 0}
@@ -91,31 +226,131 @@ h2.sec{font-family:var(--font-heading);font-size:clamp(32px,4vw,56px);line-heigh
 .warn{background:var(--color-cream);color:var(--color-ink)}
 .copy-hint{font-size:13px;color:var(--color-ink-muted)}
 /* type */
-.type-row{border:1px solid var(--color-border);border-radius:var(--r-md);padding:24px;margin-top:16px;background:#fff}
-.type-row .spec{font-size:13px;color:var(--color-ink-muted)}
+.type-row{border:0;border-radius:var(--r-xl);padding:32px 44px;margin-top:16px;position:relative;max-width:960px;transition:transform .25s ease}
+.type-row:hover{transform:translateY(-3px)}
+.type-row.ty-rose{background:var(--color-primary-soft)}
+.type-row.ty-lime{background:var(--color-secondary-soft)}
+.type-row.ty-cream{background:var(--color-cream)}
+.type-row.ty-right{margin-left:auto}
+.type-row .spec{font-size:13px;color:var(--color-ink-muted);display:block;margin-bottom:4px}
+@media (max-width:900px){.type-row{padding:24px 22px;max-width:100%}.type-row.ty-right{margin-left:0}}
 .t-hero{font-family:var(--font-display);font-size:clamp(44px,6vw,80px);line-height:1.02;margin:8px 0}
 .t-section{font-family:var(--font-heading);font-weight:700;font-size:clamp(32px,4vw,54px);line-height:1.1;margin:8px 0}
 .t-project{font-family:var(--font-heading);font-weight:700;font-size:clamp(26px,3vw,40px);margin:8px 0}
 .t-sub{font-family:var(--font-heading);font-weight:700;font-size:22px;margin:8px 0}
 .t-body{font-size:17px;max-width:68ch}
 .t-label{font-size:14px;color:var(--color-ink-muted)}
-/* radii & shapes */
-.radii{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-top:24px}
-.radius-card{border:1px solid var(--color-border);background:var(--color-secondary-soft);padding:32px 16px;text-align:center;font-family:var(--font-heading);font-weight:700}
+/* fondo degradado de la sección */
+#tipografia>.tp-bg{position:absolute;top:0;bottom:0;left:50%;width:100vw;max-width:100vw;transform:translateX(-50%);pointer-events:none;z-index:-1;background:radial-gradient(46% 72% at -14% 8%,rgba(230,82,134,.18),rgba(230,82,134,0) 70%),radial-gradient(46% 72% at 116% 92%,rgba(208,232,110,.24),rgba(208,232,110,0) 70%)}
+/* shapes — radios y formas orgánicas */
+.radii{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:32px}
+.radius-card{border:1px solid var(--color-border);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s ease,box-shadow .25s ease}
+.radius-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+.radius-card.rc-rose{background:var(--color-primary-soft)}
+.radius-card.rc-lime{background:var(--color-secondary-soft)}
+.rc-stage{height:116px;display:flex;align-items:center;justify-content:center}
+.rc-figure{display:block;width:76px;height:76px}
+.rc-rose .rc-figure{background:var(--color-secondary)}
+.rc-lime .rc-figure{background:var(--color-primary)}
+.rc-figure.is-pill{width:112px;height:52px;border-radius:var(--r-full)}
+.rc-info{padding:14px 16px 18px}
+.rc-name{font-family:var(--font-heading);font-weight:700;font-size:15px;color:var(--color-ink)}
+.rc-val{font-size:13px;color:var(--color-ink-muted);margin-left:8px}
+.rc-desc{margin:6px 0 0;font-size:13px;color:var(--color-ink-muted)}
+@media (max-width:1000px){.radii{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:620px){.radii{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:400px){.radii{grid-template-columns:1fr}}
 .shapes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
-.shape-box{border:1px solid var(--color-border);border-radius:var(--r-md);padding:24px;background:#fff;position:relative;overflow:hidden;min-height:180px}
-.blob{position:absolute;width:220px;height:220px;filter:blur(28px);opacity:.75;border-radius:50%}
-/* elevation */
-.elev{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:24px}
-.elev div{background:#fff;border:1px solid var(--color-border);border-radius:var(--r-md);padding:32px 16px;text-align:center}
+.shape-box{border:1px solid var(--color-border);border-radius:var(--r-lg);background:transparent;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.shape-stage{position:relative;min-height:200px;display:flex;align-items:center;justify-content:center;padding:24px;overflow:hidden}
+.shape-box.is-container .shape-stage{background:var(--color-secondary-soft)}
+.shape-box.is-heat .shape-stage{background:var(--color-primary-soft);padding:0}
+.shape-info{padding:20px 24px 24px}
+.shape-info h3{font-family:var(--font-heading);font-size:18px;margin:0 0 6px;color:var(--color-ink)}
+.shape-info p{margin:0;font-size:14px;color:var(--color-ink-muted)}
+.demo-outer{width:min(100%,300px);background:#fff;border:1px solid var(--color-border);border-radius:var(--r-lg);padding:18px;box-shadow:var(--shadow-subtle)}
+.demo-line{display:block;height:8px;border-radius:var(--r-full);background:rgba(29,29,27,.12)}
+.demo-inner{margin-top:14px;background:var(--color-primary-soft);border:1px solid var(--color-border);border-radius:var(--r-md);padding:14px}
+.demo-inner .demo-line{background:rgba(29,29,27,.14)}
+.demo-inner .demo-line+.demo-line{margin-top:8px}
+.demo-pill{display:inline-flex;align-items:center;margin-top:16px;font-family:var(--font-heading);font-weight:700;font-size:12px;padding:7px 16px;border-radius:var(--r-full);background:var(--color-primary-hover);color:#fff}
+.blob{position:absolute;width:240px;height:240px;filter:blur(30px);opacity:.9;border-radius:42% 58% 63% 37%/45% 42% 58% 55%}
+/* elevation — capas que crean profundidad */
+.elev-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:32px}
+.elev-card{border:1px solid rgba(255,255,255,.7);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column}
+.elev-card.is-none,.elev-card.is-float{background:var(--color-primary-soft)}
+.elev-card.is-subtle{background:var(--color-secondary-soft)}
+.elev-card.is-lift{background:var(--color-cream)}
+.elev-stage{position:relative;height:150px;display:flex;align-items:center;justify-content:center}
+.elev-token{display:block;margin:0 0 6px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:#8B8B85;background:rgba(255,255,255,.55);padding:1px 8px;width:fit-content;border-radius:6px}
+.elev-surface{width:96px;height:96px;border-radius:var(--r-md);background:#fff;border:1px solid rgba(29,29,27,.06)}
+.is-none .elev-surface{box-shadow:var(--shadow-none)}
+.is-subtle .elev-surface{box-shadow:0 6px 16px rgba(29,29,27,.10)}
+.is-lift .elev-surface{box-shadow:var(--shadow-lift);transition:transform .3s ease,box-shadow .3s ease}
+.elev-card.is-lift:hover .elev-surface{transform:translateY(-8px);box-shadow:var(--shadow-float)}
+.is-float .elev-surface{position:absolute;left:50%;top:50%}
+.is-float .elev-back{transform:translate(calc(-50% - 22px),calc(-50% - 20px));box-shadow:var(--shadow-lift)}
+.is-float .elev-front{transform:translate(calc(-50% + 20px),calc(-50% + 18px));box-shadow:var(--shadow-float);z-index:1}
+.elev-info{padding:16px 20px 22px}
+.elev-info h3{margin:0 0 6px;font-family:var(--font-heading);font-size:18px;color:var(--color-ink)}
+.elev-desc{margin:0 0 12px;font-size:14px;color:var(--color-ink-muted)}
+.elev-app{display:inline-block;font-family:var(--font-heading);font-weight:700;font-size:12px;padding:4px 12px;border-radius:var(--r-full);background:#fff;color:var(--color-ink);border:1px solid var(--color-border)}
+@media (max-width:900px){.elev-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.elev-grid{grid-template-columns:1fr}}
+/* layout — escala de espaciado */
+.scale-panel{border:1px solid rgba(237,232,225,.9);border-radius:var(--r-xl);background:transparent;padding:32px;margin-top:24px}
+.scale-row+.scale-row{margin-top:20px}
+.scale-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:8px}
+.scale-val{flex:0 0 auto;font-family:var(--font-heading);font-weight:700;font-size:14px;color:var(--color-ink)}
+.scale-desc{min-width:0;font-size:13px;color:var(--color-ink-muted);text-align:right}
+.scale-bar{display:block;height:14px;border-radius:7px;min-width:6px}
+.scale-bar.is-rose{background:var(--color-primary)}
+.scale-bar.is-lime{background:var(--color-secondary)}
+.layout-meta{margin-top:20px;font-size:13px;color:var(--color-ink-muted)}
+@media (max-width:640px){
+  .scale-panel{padding:22px 18px}
+  .scale-val{font-size:13px}
+  .scale-desc{font-size:12px}
+  .scale-bar{height:12px}
+}
 /* components */
-.comp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:24px}
-.card{border:1px solid var(--color-border);border-radius:var(--r-md);background:#fff;overflow:hidden;transition:box-shadow .2s ease,transform .2s ease}
-.card:hover{box-shadow:var(--shadow-lift);transform:translateY(-4px)}
-.card .img{height:170px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:40px}
-.card .body{padding:18px}
-.card h3{font-family:var(--font-heading);margin:0 0 6px;font-size:20px}
-.card p{font-size:14px;color:var(--color-ink-muted);margin:0 0 12px}
+/* components — biblioteca visual */
+.comp-library{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:32px}
+.comp-panel{position:relative;border:1px solid var(--color-border);border-radius:var(--r-lg);background:transparent;padding:24px;display:flex;flex-direction:column}
+.comp-panel.is-form{background:var(--color-primary-soft)}
+.comp-panel.is-wide{grid-column:1/-1}
+.comp-panel.is-proj-1{background:var(--color-primary-soft)}
+.comp-panel.is-proj-2{background:var(--color-secondary-soft)}
+.comp-panel.is-notes{background:var(--color-cream)}
+.comp-panel h3{font-family:var(--font-heading);font-size:20px;margin:0 0 6px;color:var(--color-ink)}
+.comp-lead{font-size:14px;color:var(--color-ink-muted);margin:0 0 18px;max-width:62ch}
+.comp-flag{position:absolute;top:18px;right:18px;font-family:var(--font-heading);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:#fff;color:var(--color-ink);border:1px solid var(--color-border);padding:3px 10px;border-radius:var(--r-full)}
+.comp-hint{font-size:13px;color:var(--color-ink-muted);margin:14px 0 0}
+.btn-demos{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.btn-demo{background:var(--color-primary-soft);border-radius:var(--r-md);padding:18px;display:flex;flex-direction:column;align-items:flex-start;gap:14px;min-height:116px}
+.btn-demo:nth-child(2){background:var(--color-secondary-soft)}
+.btn-demo:nth-child(3){background:var(--color-cream)}
+.btn-demo:nth-child(4){background:#fff;border:1px solid var(--color-border)}
+.btn-demo:nth-child(5){background:var(--color-primary-soft)}
+.btn-tag{font-family:var(--font-heading);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.demo-project{border:1px solid var(--color-border);border-radius:var(--r-md);background:#fff;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .25s ease,transform .25s ease}
+.demo-project:hover{box-shadow:var(--shadow-lift);transform:translateY(-4px)}
+.dp-media{aspect-ratio:16/10;overflow:hidden;background:var(--color-secondary-soft)}
+.dp-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
+.demo-project.is-interactive:hover .dp-media img{transform:scale(1.05)}
+.dp-body{padding:18px}
+.dp-cat{display:inline-block;font-family:var(--font-heading);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--color-cream);padding:4px 12px;border-radius:var(--r-full);margin-bottom:10px}
+.dp-body h4{font-family:var(--font-heading);font-size:20px;margin:0 0 10px;color:var(--color-ink)}
+.comp-form .field{margin-bottom:12px}
+.comp-form input,.comp-form textarea{background:#fff}
+.comp-form input:focus,.comp-form textarea:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px var(--color-primary-soft)}
+.comp-notes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.comp-notes li{font-size:14px;color:var(--color-ink);line-height:1.5}
+.note-tag{display:inline-block;font-family:var(--font-heading);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:#fff;border:1px solid var(--color-border);border-radius:var(--r-full);padding:2px 10px;margin-right:8px}
+@media (max-width:1000px){.btn-demos{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:760px){.comp-library{grid-template-columns:1fr}}
+@media (max-width:480px){.btn-demos{grid-template-columns:1fr}}
 .field{margin-bottom:12px}
 label{display:block;font-family:var(--font-heading);font-weight:700;font-size:14px;margin-bottom:6px}
 input,textarea{width:100%;font-family:var(--font-body);font-size:16px;padding:12px 14px;border-radius:var(--r-sm);border:1px solid var(--color-border);background:var(--color-background);min-height:44px}
@@ -124,12 +359,12 @@ input:focus,textarea:focus{outline:none;border:1.5px solid var(--color-primary)}
 /* do / dont */
 .do-dont{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
 .do,.dont{border-radius:var(--r-md);padding:24px;list-style:none;margin:0}
-.do{background:var(--color-secondary-soft)}
-.dont{background:var(--color-primary-soft)}
+.do{background:var(--color-secondary-soft);border-left:4px solid var(--color-secondary-deep)}
+.dont{background:var(--color-primary-soft);border-left:4px solid var(--color-primary-hover)}
 .do li,.dont li{margin-bottom:10px;padding-left:28px;position:relative}
 .do li::before{content:"✓";position:absolute;left:0;font-weight:700}
 .dont li::before{content:"✕";position:absolute;left:0;font-weight:700}
-footer{padding:48px 0 64px;color:var(--color-ink-muted);font-size:14px}
+footer{padding:64px 0 200px;color:var(--color-ink-muted);font-size:14px;text-align:center;position:relative}
 /* modal */
 .modal-back{position:fixed;inset:0;background:rgba(29,29,27,.4);display:none;align-items:center;justify-content:center;padding:24px;z-index:100}
 .modal-back.open{display:flex}
@@ -146,116 +381,298 @@ footer{padding:48px 0 64px;color:var(--color-ink-muted);font-size:14px}
   .shapes,.do-dont{grid-template-columns:1fr}
   section.block{padding:48px 0}
 }
+#florCursor{position:fixed;left:0;top:0;width:32px;height:32px;pointer-events:none;z-index:9999;opacity:0}
+#florCursor img{width:100%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 2px 6px rgba(29,29,27,.25))}
+@media (hover:none),(pointer:coarse){#florCursor{display:none}}
+@media (hover:hover) and (pointer:fine){
+  html.has-flor *,html.has-flor *::before,html.has-flor *::after{cursor:none !important}
+  html.has-flor input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="submit"]):not([type="button"]):not([type="reset"]):not([type="file"]):not([type="color"]),html.has-flor textarea{cursor:text !important}
+  html.has-flor select{cursor:auto !important}
+}
 </style>
 </head>
 <body>
 <a class="skip" href="#contenido">Saltar al contenido</a>
 <div class="topbar">
-  <nav class="nav" aria-label="Navegación principal">
+  <nav class="nav" aria-label="Navegación principal del sistema de diseño">
     <a class="brand" href="#top">Valeria Rojas</a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#colores">Sobre mí</a></li>
-      <li><a href="#componentes">Proyectos</a></li>
-      <li><a href="#tipografia">Experiencia</a></li>
-      <li><a href="#componentes">Contacto</a></li>
+      <li><a href="#colores">Colores</a></li>
+      <li><a href="#tipografia">Tipografía</a></li>
+      <li><a href="#layout">Layout</a></li>
+      <li><a href="#components">Componentes</a></li>
     </ul>
     <div style="display:flex;gap:8px;align-items:center">
-      <button class="btn btn-lime nav-cta" data-open-modal>Vamos a crear <span class="arr" aria-hidden="true">→</span></button>
+      <a class="btn btn-ghost" href="index.html">Volver al portafolio <span class="arr" aria-hidden="true">↗</span></a>
       <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menú</button>
     </div>
   </nav>
 </div>
 
+<figure class="portada" id="top">
+  <img class="portada-img" src="assets/img/portada-sistema.png" alt="Portada del sistema de diseño de Valeria Rojas: el título “Sistema de diseño” en Camiro rosa sobre una composición floral y orgánica" width="2298" height="1186" decoding="sync" fetchpriority="high">
+  <figcaption class="sr-only">Una identidad en constante experimentación. Un sistema visual que combina color, expresión editorial y elementos interactivos. Cada decisión busca equilibrar creatividad, claridad y personalidad.</figcaption>
+</figure>
+
 <main id="contenido" class="wrap">
-  <header class="hero" id="top">
-    <div class="heat" id="heroHeat" aria-hidden="true"></div>
-    <div class="hero-inner">
-      <span class="eyebrow">Sistema de diseño · v1</span>
-      <h1 class="display">Rosa + verde, editorial y experimental</h1>
-      <p class="lede">Referencia visual fiel a <span class="token">DESIGN.md</span>. Clic en cualquier color para copiar su hex. Esta página usa solo HTML, CSS y JS vanilla.</p>
-      <div class="hero-actions">
-        <button class="btn btn-rose" data-open-modal>Vamos a crear <span class="arr" aria-hidden="true">→</span></button>
-        <a class="btn btn-lime" href="#componentes">Ver componentes <span class="arr" aria-hidden="true">↗</span></a>
-        <a class="link-arrow" href="#colores">Pareja protagonista →</a>
-      </div>
+
+  <section class="block" id="overview" aria-labelledby="h-overview" data-heat>
+    <div class="heat-soft" aria-hidden="true"><i style="right:-18%;top:-26%;width:40%;background:radial-gradient(closest-side,rgba(230,82,134,.45),rgba(230,82,134,0))"></i><i style="right:-8%;bottom:-30%;width:42%;background:radial-gradient(closest-side,rgba(208,232,110,.5),rgba(208,232,110,0))"></i><div class="grain" aria-hidden="true"></div></div>
+    <div class="flores" aria-hidden="true">
+      <span class="flor ov1"><span class="flor-in"><img src="assets/img/flores/flor_grande.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor ov2"><span class="flor-in"><img src="assets/img/flores/tres_hojas.png" alt="" loading="lazy" decoding="async"></span></span>
     </div>
-  </header>
+    <div class="sec-label">Sistema · Overview</div>
+    <h2 class="sec" id="h-overview">Detrás de mi diseño</h2>
+    <p>Mi sistema de diseño reúne los elementos visuales que dan identidad y coherencia a este portafolio. A través del color, la tipografía, las formas y la composición, construyo un lenguaje gráfico que combina expresión, funcionalidad y experimentación.</p>
+    <p>Cada elemento tiene un propósito: crear una experiencia visual dinámica, mantener la claridad de la información y reflejar mi estilo como diseñadora.</p>
+  </section>
 
   <section class="block" id="colores" aria-labelledby="h-colores">
-    <div class="sec-label">01 · Color</div>
-    <h2 class="sec" id="h-colores">Paleta y rol</h2>
-    <p class="sec-desc">Rosa y verde se alternan como pareja protagonista (<span class="token">{colors.primary}</span> + <span class="token">{colors.secondary}</span>). Claros para pausas amplias, intensos solo para énfasis. <span class="copy-hint">Clic para copiar.</span></p>
+    <div class="flores" aria-hidden="true">
+      <span class="flor co1"><span class="flor-in"><img src="assets/img/flores/hoja_sola.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor co2"><span class="flor-in"><img src="assets/img/flores/tres_gotas_rosas.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor co3"><span class="flor-in"><img src="assets/img/flores/flor_chica.png" alt="" loading="lazy" decoding="async"></span></span>
+    </div>
+    <div class="sec-label">Sistema · Colores</div>
+    <h2 class="sec" id="h-colores">El color como identidad</h2>
+    <p class="sec-desc">El rosa y el verde lima son los colores principales de mi identidad visual. Su combinación aporta energía, contraste y personalidad, mientras que los tonos suaves y neutros equilibran la composición.</p>
+    <p class="sec-desc">Cada color cumple una función dentro del sistema, desde destacar elementos interactivos hasta organizar la información y crear espacios de descanso visual.</p>
+    <p class="copy-hint">Clic en un color para copiar su código.</p>
     <div class="swatches" id="swatches" role="list"></div>
   </section>
 
   <section class="block" id="tipografia" aria-labelledby="h-tipo">
-    <div class="sec-label">02 · Tipografía</div>
-    <h2 class="sec" id="h-tipo">Escala editorial</h2>
-    <p class="sec-desc">Camiro para expresión (<span class="token">display</span>), Bricolage Grotesque Bold para jerarquía (<span class="token">heading</span>), Questrial para lectura (<span class="token">body</span>). Camiro no está en Google Fonts: aquí se sustituye por Fraunces como equivalente visual.</p>
-    <div class="type-row"><div class="spec">Display · Camiro Regular · 80–96px desktop / 44–56px móvil · <span class="token">line-height 1.02</span></div><div class="t-hero">Portfolio que se siente pieza personal</div></div>
-    <div class="type-row"><div class="spec">Sección · Bricolage Grotesque Bold · 52–64px</div><div class="t-section">Proyectos seleccionados</div></div>
-    <div class="type-row"><div class="spec">Proyecto · Bricolage Bold · 36–44px</div><div class="t-project">Heat map interactivo ↗</div></div>
-    <div class="type-row"><div class="spec">Subtítulo · 20–24px</div><div class="t-sub">Libertad controlada con aire y pausas</div></div>
-    <div class="type-row"><div class="spec">Cuerpo · Questrial 17–18px · 1.6</div><p class="t-body">La experiencia llama la atención sin cansar: momentos de color y ruptura de retícula conviven con zonas claras y amplias para descansar la vista y observar los proyectos.</p></div>
-    <div class="type-row"><div class="spec">Etiqueta · 14–15px · Nav/Botón · 15–16px</div><div class="t-label">SOBRE MÍ · PROYECTOS · EXPERIENCIA · CONTACTO</div></div>
+    <div class="tp-bg" aria-hidden="true"></div>
+    <div class="flores" aria-hidden="true">
+      <span class="flor tp1"><span class="flor-in"><img src="assets/img/flores/flor_mediana.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor tp2"><span class="flor-in"><img src="assets/img/flores/tres_gotas.png" alt="" loading="lazy" decoding="async"></span></span>
+    </div>
+    <div class="sec-label">Sistema · Tipografía</div>
+    <h2 class="sec" id="h-tipo">Tipografía con personalidad</h2>
+    <p class="sec-desc">La tipografía es una parte esencial de mi identidad visual. La combinación de Camiro, Bricolage Grotesque y Questrial permite crear una jerarquía clara, equilibrando expresividad y legibilidad.</p>
+    <p class="sec-desc">Cada tipografía cumple una función específica: Camiro aporta carácter a las composiciones, Bricolage Grotesque da fuerza a los títulos y Questrial facilita la lectura de los contenidos.</p>
+    <div class="type-row ty-rose ty-right"><div class="spec">Display · Camiro Regular · 80–96px desktop / 44–56px móvil · <span class="token">line-height 1.02</span></div><div class="t-hero">IDEAS QUE TOMAN FORMA.</div></div>
+    <div class="type-row ty-lime"><div class="spec">Sección · Bricolage Grotesque Bold · 52–64px</div><div class="t-section">Ideas hechas realidad</div></div>
+    <div class="type-row ty-cream ty-right"><div class="spec">Proyecto · Bricolage Bold · 36–44px</div><div class="t-project">ITASO ↗</div></div>
+    <div class="type-row ty-rose"><div class="spec">Subtítulo · 20–24px</div><div class="t-sub">Diseño que conecta ideas y personas</div></div>
+    <div class="type-row ty-lime ty-right"><div class="spec">Cuerpo · Questrial 17–18px · 1.6</div><p class="t-body">Cada proyecto es una oportunidad para explorar nuevas ideas y encontrar diferentes formas de comunicar. A través del diseño, busco crear propuestas visuales que combinen creatividad, claridad y funcionalidad, cuidando tanto los detalles como la experiencia de quien interactúa con ellas.</p></div>
+    <div class="type-row ty-cream"><div class="spec">Etiqueta · 14–15px · Nav/Botón · 15–16px</div><div class="t-label">SOBRE MÍ · PROYECTOS · EXPERIENCIA · CONTACTO</div></div>
   </section>
 
-  <section class="block" id="radios" aria-labelledby="h-radios">
-    <div class="sec-label">03 · Radios y formas</div>
-    <h2 class="sec" id="h-radios">Contenedores limpios, motivos difusos</h2>
-    <p class="sec-desc">Contenedores <span class="token">{rounded.md} 16px</span>, superficies protagonistas <span class="token">24–32px</span>, botones y nav flotante en <span class="token">cápsula 999px</span>. El heat map rompe la geometría sin bloquear contenido.</p>
+  <section class="block" id="layout" aria-labelledby="h-layout">
+    <div class="flores" aria-hidden="true">
+      <span class="flor ly1"><span class="flor-in"><img src="assets/img/flores/hoja_grande.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor ly2"><span class="flor-in"><img src="assets/img/flores/flor_chica.png" alt="" loading="lazy" decoding="async"></span></span>
+    </div>
+    <div class="sec-label">Sistema · Layout</div>
+    <h2 class="sec" id="h-layout">Espacios que dan estructura</h2>
+    <p class="sec-desc">El espaciado y la composición permiten organizar los elementos de manera clara y equilibrada. Mi sistema parte de una escala de 8 px que mantiene la consistencia entre secciones, componentes y contenidos.</p>
+    <p class="sec-desc">La distribución utiliza márgenes amplios y una retícula flexible que aporta orden sin limitar la libertad visual de cada composición.</p>
+    <div class="scale-panel" role="list" aria-label="Escala de espaciado del sistema">
+      <div class="scale-row" role="listitem"><div class="scale-head"><span class="scale-val">8 px</span><span class="scale-desc">Unidad base</span></div><span class="scale-bar is-rose" style="width:8.33%" aria-hidden="true"></span></div>
+      <div class="scale-row" role="listitem"><div class="scale-head"><span class="scale-val">16 px</span><span class="scale-desc">Espacio pequeño</span></div><span class="scale-bar is-lime" style="width:16.67%" aria-hidden="true"></span></div>
+      <div class="scale-row" role="listitem"><div class="scale-head"><span class="scale-val">24 px</span><span class="scale-desc">Espacio medio</span></div><span class="scale-bar is-rose" style="width:25%" aria-hidden="true"></span></div>
+      <div class="scale-row" role="listitem"><div class="scale-head"><span class="scale-val">32 px</span><span class="scale-desc">Espacio entre elementos</span></div><span class="scale-bar is-lime" style="width:33.33%" aria-hidden="true"></span></div>
+      <div class="scale-row" role="listitem"><div class="scale-head"><span class="scale-val">48 px</span><span class="scale-desc">Espacio amplio</span></div><span class="scale-bar is-rose" style="width:50%" aria-hidden="true"></span></div>
+      <div class="scale-row" role="listitem"><div class="scale-head"><span class="scale-val">64 px</span><span class="scale-desc">Margen de escritorio</span></div><span class="scale-bar is-lime" style="width:66.67%" aria-hidden="true"></span></div>
+      <div class="scale-row" role="listitem"><div class="scale-head"><span class="scale-val">96 px</span><span class="scale-desc">Separación de secciones</span></div><span class="scale-bar is-rose" style="width:100%" aria-hidden="true"></span></div>
+    </div>
+    <p class="layout-meta">Unidad base 8 px · Contenedor máximo 1280 px · Margen en escritorio 64 px · Margen en móvil 24 px · Separación entre secciones 96 px</p>
+  </section>
+
+  <section class="block" id="elevation" aria-labelledby="h-elevation" data-heat>
+    <div class="heat-soft" aria-hidden="true"><i style="right:-16%;top:-24%;width:40%;background:radial-gradient(closest-side,rgba(230,82,134,.45),rgba(230,82,134,0))"></i><i style="left:-16%;bottom:-26%;width:42%;background:radial-gradient(closest-side,rgba(208,232,110,.5),rgba(208,232,110,0))"></i><div class="grain" aria-hidden="true"></div></div>
+    <div class="flores" aria-hidden="true">
+      <span class="flor el1"><span class="flor-in"><img src="assets/img/flores/hoja_chica.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor el2"><span class="flor-in"><img src="assets/img/flores/flor_chica.png" alt="" loading="lazy" decoding="async"></span></span>
+    </div>
+    <div class="sec-label">Sistema · Elevation &amp; Depth</div>
+    <h2 class="sec" id="h-elevation">Capas que crean profundidad</h2>
+    <p class="sec-desc">La profundidad aporta dimensión y jerarquía a los elementos de mi portafolio. A través de sombras sutiles, elevaciones y pequeños movimientos, las superficies adquieren presencia sin perder la ligereza visual.</p>
+    <p class="sec-desc">Cada nivel tiene una función específica: diferenciar elementos, destacar interacciones y guiar la atención de manera natural.</p>
+    <div class="elev-grid">
+      <article class="elev-card is-none">
+        <div class="elev-stage"><span class="elev-surface"></span></div>
+        <div class="elev-info"><h3>Sin elevación</h3><code class="elev-token">--shadow-none</code><p class="elev-desc">Superficie plana que mantiene los elementos integrados al fondo.</p><span class="elev-app">Elementos en reposo</span></div>
+      </article>
+      <article class="elev-card is-subtle">
+        <div class="elev-stage"><span class="elev-surface"></span></div>
+        <div class="elev-info"><h3>Sombra sutil</h3><code class="elev-token">--shadow-subtle</code><p class="elev-desc">Aporta una separación ligera entre los elementos y el fondo.</p><span class="elev-app">Imágenes y tarjetas destacadas</span></div>
+      </article>
+      <article class="elev-card is-lift">
+        <div class="elev-stage"><span class="elev-surface"></span></div>
+        <div class="elev-info"><h3>Elevación interactiva</h3><code class="elev-token">--shadow-lift</code><p class="elev-desc">Destaca los elementos cuando el usuario interactúa con ellos.</p><span class="elev-app">Hover en tarjetas</span></div>
+      </article>
+      <article class="elev-card is-float">
+        <div class="elev-stage"><span class="elev-surface elev-back"></span><span class="elev-surface elev-front"></span></div>
+        <div class="elev-info"><h3>Elemento flotante</h3><code class="elev-token">--shadow-float</code><p class="elev-desc">Crea un nivel superior para destacar contenido sobre otras superficies.</p><span class="elev-app">Elementos superpuestos o modales</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="shapes" aria-labelledby="h-shapes" data-heat>
+    <div class="heat-soft" aria-hidden="true"><i style="left:-18%;bottom:-28%;width:40%;background:radial-gradient(closest-side,rgba(208,232,110,.45),rgba(208,232,110,0))"></i><i style="right:-16%;top:-24%;width:38%;background:radial-gradient(closest-side,rgba(230,82,134,.45),rgba(230,82,134,0))"></i><div class="grain" aria-hidden="true"></div></div>
+    <div class="flores" aria-hidden="true">
+      <span class="flor sh1"><span class="flor-in"><img src="assets/img/flores/tres_hojas.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor sh2"><span class="flor-in"><img src="assets/img/flores/flor_mediana.png" alt="" loading="lazy" decoding="async"></span></span>
+    </div>
+    <div class="sec-label">Sistema · Shapes</div>
+    <h2 class="sec" id="h-shapes">Formas que dan identidad</h2>
+    <p class="sec-desc">Las formas y los bordes redondeados aportan continuidad y personalidad a mi sistema visual. A través de diferentes niveles de curvatura, los elementos mantienen una apariencia cercana, flexible y coherente.</p>
+    <p class="sec-desc">Las superficies geométricas conviven con formas orgánicas y degradados difusos, creando un equilibrio entre estructura y expresión visual.</p>
     <div class="radii">
-      <div class="radius-card" style="border-radius:var(--r-sm)">sm · 12px<br><span class="token">input</span></div>
-      <div class="radius-card" style="border-radius:var(--r-md)">md · 16px<br><span class="token">container</span></div>
-      <div class="radius-card" style="border-radius:var(--r-lg)">lg · 24px<br><span class="token">feature</span></div>
-      <div class="radius-card" style="border-radius:var(--r-xl)">xl · 32px<br><span class="token">modal</span></div>
-      <div class="radius-card" style="border-radius:var(--r-full)">cápsula · 999px<br><span class="token">pill</span></div>
+      <article class="radius-card rc-rose">
+        <div class="rc-stage"><span class="rc-figure" style="border-radius:var(--r-sm)"></span></div>
+        <div class="rc-info"><span class="rc-name">SM</span><span class="rc-val">12 px</span><p class="rc-desc">Inputs y elementos pequeños</p></div>
+      </article>
+      <article class="radius-card rc-lime">
+        <div class="rc-stage"><span class="rc-figure" style="border-radius:var(--r-md)"></span></div>
+        <div class="rc-info"><span class="rc-name">MD</span><span class="rc-val">16 px</span><p class="rc-desc">Contenedores</p></div>
+      </article>
+      <article class="radius-card rc-rose">
+        <div class="rc-stage"><span class="rc-figure" style="border-radius:var(--r-lg)"></span></div>
+        <div class="rc-info"><span class="rc-name">LG</span><span class="rc-val">24 px</span><p class="rc-desc">Tarjetas destacadas</p></div>
+      </article>
+      <article class="radius-card rc-lime">
+        <div class="rc-stage"><span class="rc-figure" style="border-radius:var(--r-xl)"></span></div>
+        <div class="rc-info"><span class="rc-name">XL</span><span class="rc-val">32 px</span><p class="rc-desc">Superficies principales y modales</p></div>
+      </article>
+      <article class="radius-card rc-rose">
+        <div class="rc-stage"><span class="rc-figure is-pill"></span></div>
+        <div class="rc-info"><span class="rc-name">PILL</span><span class="rc-val">999 px</span><p class="rc-desc">Botones, etiquetas y navegación tipo cápsula</p></div>
+      </article>
     </div>
     <div class="shapes">
-      <div class="shape-box"><strong>Contenedor limpio</strong><p class="t-label">Bordes de 16–32px, sin sombra en reposo (<span class="token">{elevation.none}</span>).</p></div>
-      <div class="shape-box" aria-label="Ejemplo de forma orgánica heat map"><div class="blob" style="left:10%;top:10%;background:rgba(230,82,134,.55)"></div><div class="blob" style="left:45%;top:30%;background:rgba(208,232,110,.6)"></div><div class="blob" style="left:30%;top:55%;background:rgba(252,226,191,.9)"></div><strong style="position:relative">Heat map difuso</strong><p class="t-label" style="position:relative">Foco visual parcial, nunca fondo permanente.</p></div>
+      <article class="shape-box is-container">
+        <div class="shape-stage">
+          <div class="demo-outer">
+            <span class="demo-line" style="width:62%"></span>
+            <div class="demo-inner">
+              <span class="demo-line" style="width:78%"></span>
+              <span class="demo-line" style="width:48%"></span>
+            </div>
+            <span class="demo-pill">Ver proyectos</span>
+          </div>
+        </div>
+        <div class="shape-info"><h3>Contenedores con estructura</h3><p>Los bordes redondeados suavizan la composición y permiten organizar el contenido sin perder claridad visual.</p></div>
+      </article>
+      <article class="shape-box is-heat">
+        <div class="shape-stage heat-stage" aria-label="Ejemplo de forma orgánica con heat map">
+          <i class="blob" style="left:-6%;top:-14%;background:radial-gradient(closest-side,rgba(230,82,134,.9),rgba(230,82,134,0))"></i>
+          <i class="blob" style="right:-8%;bottom:-18%;background:radial-gradient(closest-side,rgba(208,232,110,.95),rgba(208,232,110,0))"></i>
+          <i class="blob" style="left:32%;top:24%;background:radial-gradient(closest-side,rgba(252,226,191,.9),rgba(252,226,191,0))"></i>
+        </div>
+        <div class="shape-info"><h3>Formas orgánicas y color</h3><p>Los degradados difusos aportan movimiento y expresión visual, rompiendo la rigidez de la composición sin interferir con el contenido.</p></div>
+      </article>
     </div>
-    <div class="elev">
-      <div style="box-shadow:var(--shadow-none)">none<br><span class="token">reposo</span></div>
-      <div style="box-shadow:var(--shadow-subtle)">subtle<br><span class="token">imagen flotante</span></div>
-      <div style="box-shadow:var(--shadow-lift)">lift<br><span class="token">hover tarjeta</span></div>
-      <div style="box-shadow:var(--shadow-float)">float<br><span class="token">modal</span></div>
+    <div class="flor-lib">
+      <h3 class="lib-title">Formas orgánicas y elementos florales</h3>
+      <p class="lib-desc">Las flores, hojas y formas orgánicas aportan movimiento, personalidad y expresión visual a mi identidad. Se utilizan como elementos decorativos para acompañar el contenido, crear composiciones más dinámicas y conectar las distintas secciones del portafolio.</p>
+      <div class="flor-shelf" role="list" aria-label="Colección de flores y hojas del sistema">
+        <span class="flor lb1" role="listitem"><span class="flor-in"><img src="assets/img/flores/flor_grande.png" alt="Flor grande — elemento de acento principal" loading="lazy" decoding="async"></span></span>
+        <span class="flor lb2" role="listitem"><span class="flor-in"><img src="assets/img/flores/hoja_sola.png" alt="Hoja sola — conexión entre composiciones" loading="lazy" decoding="async"></span></span>
+        <span class="flor lb3" role="listitem"><span class="flor-in"><img src="assets/img/flores/tres_hojas.png" alt="Tres hojas — movimiento orgánico" loading="lazy" decoding="async"></span></span>
+        <span class="flor lb4" role="listitem"><span class="flor-in"><img src="assets/img/flores/flor_mediana.png" alt="Flor mediana — acento decorativo" loading="lazy" decoding="async"></span></span>
+        <span class="flor lb5" role="listitem"><span class="flor-in"><img src="assets/img/flores/hoja_grande.png" alt="Hoja grande — acompañamiento visual" loading="lazy" decoding="async"></span></span>
+        <span class="flor lb6" role="listitem"><span class="flor-in"><img src="assets/img/flores/flor_chica.png" alt="Flor chica — acento puntual" loading="lazy" decoding="async"></span></span>
+        <span class="flor lb7" role="listitem"><span class="flor-in"><img src="assets/img/flores/tres_gotas_rosas.png" alt="Gotas rosadas — detalle floral" loading="lazy" decoding="async"></span></span>
+        <span class="flor lb8" role="listitem"><span class="flor-in"><img src="assets/img/flores/hoja_chica.png" alt="Hoja chica — remate ligero" loading="lazy" decoding="async"></span></span>
+      </div>
+      <div class="lib-rules">
+        <div class="lib-rule lib-good">
+          <h4>Uso correcto</h4>
+          <ul>
+            <li>Utilizar flores en espacios libres para complementar la composición.</li>
+            <li>Variar escalas para crear profundidad y jerarquía.</li>
+            <li>Combinar flores y hojas de manera equilibrada.</li>
+            <li>Aplicar movimientos sutiles que aporten dinamismo.</li>
+          </ul>
+        </div>
+        <div class="lib-rule lib-bad">
+          <h4>Evitar</h4>
+          <ul>
+            <li>Colocar flores detrás o encima de textos.</li>
+            <li>Saturar las secciones con demasiados elementos.</li>
+            <li>Utilizar flores que dificulten la navegación o interacción.</li>
+            <li>Deformar las proporciones originales de los recursos.</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="block" id="componentes" aria-labelledby="h-comp">
-    <div class="sec-label">04 · Componentes</div>
-    <h2 class="sec" id="h-comp">Botones, tarjetas y formulario</h2>
-    <p class="sec-desc">La forma y el comportamiento se mantienen; solo alterna el color según el fondo. Nota de accesibilidad: el botón rosa usa fondo <span class="token">primary-hover #C93E70</span> con texto blanco (4.69:1, pasa AA); el rosa #E65286 con blanco no pasa y se reserva para texto grande.</p>
-    <div class="comp-grid">
-      <div class="card"><div class="body">
-        <h3>Botones</h3>
-        <p>Cápsula · Bricolage Bold 15–16px · padding 16/32</p>
-        <div style="display:flex;flex-wrap:wrap;gap:10px">
-          <button class="btn btn-rose">Enviar mensaje <span class="arr" aria-hidden="true">→</span></button>
-          <button class="btn btn-lime">Vamos a crear <span class="arr" aria-hidden="true">↗</span></button>
-          <button class="btn btn-ghost">Secundario →</button>
+  <section class="block" id="components" aria-labelledby="h-comp" data-heat>
+    <div class="heat-soft" aria-hidden="true"><i style="right:-16%;top:-18%;width:36%;background:radial-gradient(closest-side,rgba(230,82,134,.3),rgba(230,82,134,0))"></i><i style="left:-14%;bottom:-22%;width:36%;background:radial-gradient(closest-side,rgba(208,232,110,.32),rgba(208,232,110,0))"></i><div class="grain" aria-hidden="true"></div></div>
+    <div class="flores" aria-hidden="true">
+      <span class="flor cp1"><span class="flor-in"><img src="assets/img/flores/tres_gotas_rosas.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor cp2"><span class="flor-in"><img src="assets/img/flores/flor_grande.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor cp3"><span class="flor-in"><img src="assets/img/flores/tres_gotas.png" alt="" loading="lazy" decoding="async"></span></span>
+    </div>
+    <div class="sec-label">Sistema · Components</div>
+    <h2 class="sec" id="h-comp">Elementos que conectan</h2>
+    <p class="sec-desc">Los componentes son los elementos que permiten interactuar con mi portafolio. Cada botón, tarjeta y campo de texto mantiene un lenguaje visual consistente, combinando formas suaves, colores contrastantes y respuestas intuitivas.</p>
+    <p class="sec-desc">Su diseño busca facilitar la navegación, destacar el contenido y crear una experiencia clara, dinámica y accesible.</p>
+    <div class="comp-library">
+      <article class="comp-panel is-wide">
+        <span class="comp-flag">Ejemplos</span>
+        <h3>Botones y acciones</h3>
+        <p class="comp-lead">Los botones permiten identificar acciones y navegar entre secciones mediante diferentes niveles de énfasis visual.</p>
+        <div class="btn-demos">
+          <div class="btn-demo"><span class="btn-tag">Primario</span><button type="button" class="btn btn-rose">Enviar mensaje <span class="arr" aria-hidden="true">→</span></button></div>
+          <div class="btn-demo"><span class="btn-tag">Secundario</span><button type="button" class="btn btn-lime">Vamos a crear <span class="arr" aria-hidden="true">↗</span></button></div>
+          <div class="btn-demo"><span class="btn-tag">Contorno</span><button type="button" class="btn btn-ghost">Conóceme <span class="arr" aria-hidden="true">→</span></button></div>
+          <div class="btn-demo"><span class="btn-tag">Enlace</span><a class="link-arrow" href="#components">Ver proyectos <span class="arr" aria-hidden="true">↗</span></a></div>
+          <div class="btn-demo"><span class="btn-tag">Primario · desactivado</span><button type="button" class="btn btn-rose" disabled>Enviar mensaje <span class="arr" aria-hidden="true">→</span></button></div>
         </div>
-        <p style="margin-top:12px"><a class="link-arrow" href="#componentes">Texto + → sin caja ↗</a></p>
-      </div></div>
-      <div class="card"><div class="img" style="background:var(--color-cream)" aria-hidden="true">Aa</div><div class="body"><h3>Proyecto · imagen directa</h3><p>Sin marco obligatorio · hover: zoom 1.03</p><a class="link-arrow" href="#componentes">Ver caso →</a></div></div>
-      <div class="card"><div class="img" style="background:var(--color-secondary-soft)" aria-hidden="true">✳</div><div class="body"><h3>Proyecto · mockup desplazado</h3><p>Escalas distintas · revela segunda vista</p><a class="link-arrow" href="#componentes">Ver caso ↗</a></div></div>
-      <div class="card"><div class="body">
+        <p class="comp-hint">Demostraciones visuales: permiten observar estados reales (hover, focus, activo) sin ejecutar acciones.</p>
+      </article>
+      <article class="comp-panel is-proj-1">
+        <h3>Tarjeta de proyecto</h3>
+        <p class="comp-lead">Presenta una vista previa del proyecto y permite acceder a su contenido de manera directa.</p>
+        <div class="demo-project">
+          <div class="dp-media"><img src="assets/img/MKP_itaso.png" alt="Miniatura del proyecto ITASO" loading="lazy"></div>
+          <div class="dp-body"><span class="dp-cat">Identidad visual · UX/UI</span><h4>ITASO</h4><a class="link-arrow" href="#components">Ver proyecto <span class="arr" aria-hidden="true">↗</span></a></div>
+        </div>
+      </article>
+      <article class="comp-panel is-proj-2">
+        <h3>Tarjeta interactiva</h3>
+        <p class="comp-lead">Utiliza movimientos y transiciones sutiles para destacar el contenido durante la exploración.</p>
+        <div class="demo-project is-interactive">
+          <div class="dp-media"><img src="assets/img/MKP_dunkin.png" alt="Miniatura del proyecto Dunkin'" loading="lazy"></div>
+          <div class="dp-body"><span class="dp-cat">Diseño web</span><h4>Dunkin'</h4><a class="link-arrow" href="#components">Ver proyecto <span class="arr" aria-hidden="true">→</span></a></div>
+        </div>
+      </article>
+      <article class="comp-panel is-form">
+        <span class="comp-flag">Demo</span>
         <h3>Vamos a crear</h3>
-        <p>Modal amplio <span class="token">32px</span> · foco rosa o verde</p>
-        <form id="demoForm">
+        <p class="comp-lead">Un espacio para compartir ideas, propuestas o comenzar una conversación.</p>
+        <form id="demoForm" class="comp-form">
           <div class="field"><label for="f-nombre">Nombre</label><input id="f-nombre" name="nombre" autocomplete="name" required placeholder="Tu nombre"></div>
-          <div class="field"><label for="f-correo">Correo</label><input id="f-correo" type="email" autocomplete="email" required placeholder="hola@mail.com"></div>
+          <div class="field"><label for="f-correo">Correo</label><input id="f-correo" type="email" autocomplete="email" required placeholder="hola@correo.com"></div>
           <div class="field"><label for="f-idea">¿Qué tienes en mente?</label><textarea id="f-idea" rows="3" placeholder="Cuéntame tu idea"></textarea></div>
-          <button class="btn btn-lime" type="submit">Enviar mensaje <span class="arr" aria-hidden="true">→</span></button>
+          <button class="btn btn-rose" type="submit">Enviar mensaje <span class="arr" aria-hidden="true">→</span></button>
         </form>
         <p class="form-note" id="formMsg" role="status"></p>
-      </div></div>
+      </article>
+      <article class="comp-panel is-notes">
+        <h3>Estados y accesibilidad</h3>
+        <p class="comp-lead">Cada componente se revisa en sus estados default, hover, focus, active y disabled.</p>
+        <ul class="comp-notes">
+          <li><span class="note-tag">Contraste</span>El botón rosa usa <span class="token">primary-hover #C93E70</span> con texto blanco: 4.69:1, pasa AA.</li>
+          <li><span class="note-tag">Aviso</span>El rosa <span class="token">#E65286</span> con blanco no alcanza AA y se reserva para texto grande.</li>
+          <li><span class="note-tag">Movimiento</span>Los efectos respetan <span class="token">prefers-reduced-motion</span>.</li>
+        </ul>
+      </article>
     </div>
   </section>
 
   <section class="block" id="reglas" aria-labelledby="h-reglas">
-    <div class="sec-label">05 · Reglas</div>
+    <div class="flores" aria-hidden="true">
+      <span class="flor rg1"><span class="flor-in"><img src="assets/img/flores/hoja_grande.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor rg2"><span class="flor-in"><img src="assets/img/flores/tres_hojas.png" alt="" loading="lazy" decoding="async"></span></span>
+    </div>
+    <div class="sec-label">Sistema · Do's &amp; Don'ts</div>
     <h2 class="sec" id="h-reglas">Sí y no</h2>
     <div class="do-dont">
       <ul class="do" aria-label="Lo que sí">
@@ -275,7 +692,34 @@ footer{padding:48px 0 64px;color:var(--color-ink-muted);font-size:14px}
     </div>
   </section>
 
-  <footer>Valeria Rojas · Sistema de diseño v1 · Tokens de <span class="token">DESIGN.md</span> · Espaciado base 8px · <span id="year"></span></footer>
+  <section class="block" id="responsive" aria-labelledby="h-responsive">
+    <div class="resp-flores" aria-hidden="true">
+      <span class="flor rv1"><span class="flor-in"><img src="assets/img/flores/flor_grande.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor rv2"><span class="flor-in"><img src="assets/img/flores/tres_hojas.png" alt="" loading="lazy" decoding="async"></span></span>
+    </div>
+    <div class="sec-label">Sistema · Responsive</div>
+    <h2 class="sec" id="h-responsive">Adaptación móvil</h2>
+    <p class="sec-desc">La composición se reordena; no se limita a reducir la versión de escritorio. Los proyectos pasan principalmente a una columna y las imágenes conservan protagonismo. Toda interacción basada en hover debe tener una alternativa clara mediante toque. Los márgenes se reducen, pero nunca desaparecen; el contenido no debe tocar los bordes de la pantalla.</p>
+  </section>
+
+  <footer>
+    <div class="cierre-flores" aria-hidden="true">
+      <span class="flor cf1"><span class="flor-in"><img src="assets/img/flores/flor_grande.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor cf2"><span class="flor-in"><img src="assets/img/flores/hoja_sola.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor cf3"><span class="flor-in"><img src="assets/img/flores/tres_hojas.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor cf4"><span class="flor-in"><img src="assets/img/flores/tres_gotas_rosas.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor cf5"><span class="flor-in"><img src="assets/img/flores/flor_mediana.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor cf6"><span class="flor-in"><img src="assets/img/flores/hoja_grande.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor cf7"><span class="flor-in"><img src="assets/img/flores/tres_gotas.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor cf8"><span class="flor-in"><img src="assets/img/flores/tres_gotas_rosas.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor cf9"><span class="flor-in"><img src="assets/img/flores/hoja_grande.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor cf10"><span class="flor-in"><img src="assets/img/flores/hoja_chica.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor cf11"><span class="flor-in"><img src="assets/img/flores/flor_grande.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor cf12"><span class="flor-in"><img src="assets/img/flores/tres_hojas.png" alt="" loading="lazy" decoding="async"></span></span>
+      <span class="flor cf13"><span class="flor-in"><img src="assets/img/flores/flor_chica.png" alt="" loading="lazy" decoding="async"></span></span>
+    </div>
+    <span class="foot-text">Valeria Rojas · Portfolio 2026</span>
+  </footer>
 </main>
 
 <div class="modal-back" id="modalBack">
@@ -299,34 +743,41 @@ footer{padding:48px 0 64px;color:var(--color-ink-muted);font-size:14px}
 </div>
 
 <script>
-// Datos fieles a DESIGN.md
-const COLORS = [
-  ["primary","#E65286","Rosa protagonista. Énfasis, activos, botones. Solo texto grande con blanco (3.49:1).","dark"],
-  ["primary-hover","#C93E70","Rosa oscuro accesible. Botón con texto blanco (4.69:1 ✓).","light"],
-  ["primary-soft","#FDE6EC","Rosa pálido. Fondo de pausa con texto ink.","dark"],
-  ["rose-mid","#EE7FA8","Rosa intermedio [REVISAR]. Solo decorativo / texto oscuro.","dark"],
-  ["secondary","#D0E86E","Verde lima. Botones y acentos, siempre con texto ink.","dark"],
-  ["secondary-deep","#7A9A1E","Verde profundo [REVISAR]. Solo con texto ink (5.20:1).","dark"],
-  ["secondary-soft","#F1F6D3","Verde muy claro. Fondo de pausa.","dark"],
-  ["cream","#FCE2BF","Crema. Fondo de pausa y transición.","dark"],
-  ["background","#FDFDFD","Blanco. Fondo principal de página.","dark"],
-  ["ink","#1D1D1B","Tinta. Texto principal sobre claros (16.6:1 ✓).","light"],
-  ["ink-muted","#5A5A57","Gris texto secundario (6.80:1 ✓).","light"],
-  ["border-subtle","#EDE8E1","Borde sutil de tarjetas y nav.","dark"]
-];
-const list = document.getElementById("swatches");
-COLORS.forEach(([name,hex,role,kind])=>{
-  const el = document.createElement("button");
-  el.type = "button"; el.setAttribute("role","listitem");
-  el.className = "swatch"; el.style.padding = "0"; el.style.cursor = "pointer"; el.style.textAlign = "left"; el.style.font = "inherit"; el.style.color = "inherit";
-  el.setAttribute("aria-label", `Copiar ${name} ${hex}`);
-  el.innerHTML = `<div class="chip" style="background:${hex}"></div><div class="meta"><strong>{colors.${name}}</strong><code>${hex}</code><p>${role}</p><span class="badge ${name.includes("hover")||name.includes("ink")||name==="primary"?"ok":"ok"}">${kind==="light"?"texto claro":"texto oscuro"}</span></div>`;
-  el.addEventListener("click", async ()=>{
-    try{ await navigator.clipboard.writeText(hex); el.querySelector("code").textContent = hex+" ✓"; }
-    catch{ el.querySelector("code").textContent = hex; }
+// heat suave en secciones con data-heat
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(!reduce){ document.querySelectorAll("[data-heat]").forEach(zone=>{
+  const blobs = zone.querySelectorAll(".heat-soft i"); if(!blobs.length) return;
+  zone.addEventListener("pointermove",e=>{ const r=zone.getBoundingClientRect();
+    const dx=((e.clientX-r.left)/r.width-.5)*24, dy=((e.clientY-r.top)/r.height-.5)*24;
+    blobs.forEach((b,i)=>{ const f=i%2? -1:1; b.style.setProperty("--hx",(dx*f).toFixed(1)+"px"); b.style.setProperty("--hy",(dy*f).toFixed(1)+"px"); });
   });
-  list.appendChild(el);
-});
+  zone.addEventListener("pointerleave",()=>blobs.forEach(b=>{ b.style.setProperty("--hx","0px"); b.style.setProperty("--hy","0px"); }));
+});}
+// cursor de flor: seguidor visual, no sustituye el cursor nativo
+if(matchMedia("(hover:hover) and (pointer:fine)").matches){
+  const cur=document.createElement("div"); cur.id="florCursor"; cur.setAttribute("aria-hidden","true");
+  const fim=document.createElement("img"); fim.alt=""; fim.width=32; fim.height=32;
+  fim.onload=()=>document.documentElement.classList.add("has-flor");
+  fim.onerror=()=>{ cur.remove(); };
+  fim.src="assets/img/flor-cursor.PNG"; cur.appendChild(fim); document.body.appendChild(cur);
+  if(fim.complete&&fim.naturalWidth) document.documentElement.classList.add("has-flor");
+  let x=innerWidth/2,y=innerHeight/2,tx=x,ty=y,s=1,ts=1,raf=null;
+  function loop(){ x+=(tx-x)*.22; y+=(ty-y)*.22; s+=(ts-s)*.2;
+    cur.style.transform=`translate(${x.toFixed(1)}px,${y.toFixed(1)}px) translate(-50%,-50%) scale(${s.toFixed(3)})`;
+    raf=requestAnimationFrame(loop); }
+  addEventListener("pointermove",e=>{ if(e.pointerType&&e.pointerType!=="mouse") return;
+    tx=e.clientX; ty=e.clientY;
+    const t=e.target;
+    if(t.closest&&t.closest("input,textarea,select,[contenteditable]")){ cur.style.opacity="0"; }
+    else{ cur.style.opacity="1"; ts=(t.closest&&t.closest("a,button,.card,.swatch"))?1.4:1; }
+    if(!raf) loop();
+  },{passive:true});
+  document.addEventListener("pointerleave",()=>{ cur.style.opacity="0"; });
+}
+// forms demo
+function fakeSubmit(id,msgId){ const f=document.getElementById(id); if(!f) return; f.addEventListener("submit",e=>{e.preventDefault(); document.getElementById(msgId).textContent="Diseño listo, envío pendiente: conecta Formspree, Netlify Forms o tu backend para activar este formulario.";}); }
+fakeSubmit("demoForm","formMsg");
+fakeSubmit("modalForm","modalMsg");
 // menú móvil
 const menuBtn = document.getElementById("menuBtn"), navLinks = document.getElementById("navLinks");
 menuBtn.addEventListener("click", ()=>{
@@ -342,14 +793,34 @@ document.querySelectorAll("[data-open-modal]").forEach(b=>b.addEventListener("cl
 document.querySelectorAll("[data-close-modal]").forEach(b=>b.addEventListener("click",closeModal));
 back.addEventListener("click",e=>{ if(e.target===back) closeModal(); });
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&back.classList.contains("open")) closeModal(); });
-// forms demo
-function fakeSubmit(id,msgId){ const f=document.getElementById(id); if(!f) return; f.addEventListener("submit",e=>{e.preventDefault(); document.getElementById(msgId).textContent="Gracias, mensaje listo para enviar (demo).";}); }
-fakeSubmit("demoForm","formMsg"); fakeSubmit("modalForm","modalMsg");
-// heat reactivo (respeta reduced motion)
-const hero = document.querySelector(".hero"), heat = document.getElementById("heroHeat");
-const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-if(!reduce){ hero.addEventListener("pointermove",e=>{ const r=hero.getBoundingClientRect(); const x=(e.clientX-r.left)/r.width*100, y=(e.clientY-r.top)/r.height*100; heat.style.background=`radial-gradient(38% 42% at ${x}% ${y}%, rgba(230,82,134,.45), transparent 70%),radial-gradient(34% 38% at ${100-x}% 40%, rgba(208,232,110,.55), transparent 70%),radial-gradient(30% 34% at 50% 72%, rgba(252,226,191,.8), transparent 70%)`; }); }
-document.getElementById("year").textContent = new Date().getFullYear();
+// Datos fieles a DESIGN.md
+const COLORS = [
+  ["primary","#E65286","Color principal de identidad. Se utiliza para destacar botones, elementos interactivos y acentos visuales.","dark"],
+  ["primary-hover","#C93E70","Variante oscura del rosa principal. Se utiliza en estados interactivos para reforzar la respuesta visual.","light"],
+  ["primary-soft","#FDE6EC","Tono suave utilizado en fondos y superficies para aportar equilibrio y ligereza visual.","dark"],
+  ["rose-mid","#EE7FA8","Rosa complementario utilizado en detalles gráficos, elementos decorativos y composiciones visuales.","dark"],
+  ["secondary","#D0E86E","Verde lima principal. Aporta contraste y se utiliza en botones, etiquetas y elementos destacados.","dark"],
+  ["secondary-deep","#7A9A1E","Variante intensa del verde, destinada a acentos gráficos y elementos que requieren mayor presencia visual.","dark"],
+  ["secondary-soft","#F1F6D3","Verde claro utilizado en fondos y superficies para crear composiciones más ligeras.","dark"],
+  ["cream","#FCE2BF","Tono cálido complementario. Se utiliza en tarjetas, fondos y transiciones entre secciones.","dark"],
+  ["background","#FDFDFD","Color base del portafolio. Proporciona claridad y permite que los elementos visuales destaquen.","dark"],
+  ["ink","#1D1D1B","Color principal de texto. Garantiza una lectura clara y un contraste adecuado sobre fondos claros.","light"],
+  ["ink-muted","#5A5A57","Gris utilizado en textos secundarios y descripciones para establecer jerarquías de información.","light"],
+  ["border-subtle","#EDE8E1","Tono neutro para bordes y divisiones sutiles, sin añadir peso visual a la composición.","dark"]
+];
+const list = document.getElementById("swatches");
+COLORS.forEach(([name,hex,role,kind])=>{
+  const el = document.createElement("button");
+  el.type = "button"; el.setAttribute("role","listitem");
+  el.className = "swatch"; el.style.padding = "0"; el.style.cursor = "pointer"; el.style.textAlign = "left"; el.style.font = "inherit"; el.style.color = "inherit";
+  el.setAttribute("aria-label", `Copiar ${name} ${hex}`);
+  el.innerHTML = `<div class="chip" style="background:${hex}"></div><div class="meta"><strong>${name}</strong><code>${hex}</code><p>${role}</p><span class="badge ${name.includes("hover")||name.includes("ink")||name==="primary"?"ok":"ok"}">${kind==="light"?"Texto recomendado: claro":"Texto recomendado: oscuro"}</span></div>`;
+  el.addEventListener("click", async ()=>{
+    try{ await navigator.clipboard.writeText(hex); el.querySelector("code").textContent = hex+" ✓"; }
+    catch{ el.querySelector("code").textContent = hex; }
+  });
+  list.appendChild(el);
+});
 </script>
 </body>
 </html>
